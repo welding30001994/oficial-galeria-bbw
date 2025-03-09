@@ -141,11 +141,173 @@
         </div>
     </nav>
     
-    <div class="upload-container">
-        <label for="file-upload" class="upload-label">Seleccionar archivos</label>
-        <input type="file" id="file-upload" multiple accept="image/*,video/*">
-        <div class="preview-container" id="preview-container"></div>
+
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .oficial_btt_bbw_imag-upload-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .oficial_btt_bbw_imag-container {
+            width: 650px;
+            height: 650px;
+            border: 2px dashed #007bff;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .oficial_btt_bbw_imag-media-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+        }
+        .oficial_btt_bbw_imag-media-item {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            cursor: grab;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 10px;
+            background: #f0f0f0;
+        }
+        .oficial_btt_bbw_imag-media-item img, .oficial_btt_bbw_imag-media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .oficial_btt_bbw_imag-remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .oficial_btt_bbw_imag-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .oficial_btt_bbw_imag-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .oficial_btt_bbw_imag-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="fileInput" accept="image/*,video/*" multiple style="display: none;">
+    <label for="fileInput" class="oficial_btt_bbw_imag-upload-btn">Subir Imágenes/Videos</label>
+    <div class="oficial_btt_bbw_imag-container">
+        <div class="oficial_btt_bbw_imag-media-container" id="mediaContainer"></div>
     </div>
+
+    <div class="oficial_btt_bbw_imag-modal" id="modal">
+        <span class="oficial_btt_bbw_imag-close-btn" id="closeModal">&times;</span>
+        <img class="oficial_btt_bbw_imag-modal-content" id="modalImg">
+    </div>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const files = Array.from(event.target.files);
+            const mediaContainer = document.getElementById('mediaContainer');
+
+            files.forEach(file => {
+                if (file.type.startsWith('image') || file.type.startsWith('video')) {
+                    const mediaItem = document.createElement('div');
+                    mediaItem.classList.add('oficial_btt_bbw_imag-media-item');
+                    
+                    if (file.type.startsWith('image')) {
+                        const img = new Image();
+                        img.src = URL.createObjectURL(file);
+                        img.onclick = () => openModal(img.src);
+                        img.onload = () => {
+                            if (img.width > 100 && img.height > 100) {
+                                mediaItem.appendChild(img);
+                                addMedia(mediaItem);
+                            }
+                        };
+                    } else {
+                        const video = document.createElement('video');
+                        video.src = URL.createObjectURL(file);
+                        video.controls = true;
+                        mediaItem.appendChild(video);
+                        addMedia(mediaItem);
+                    }
+                }
+            });
+        });
+
+        function addMedia(mediaItem) {
+            const mediaContainer = document.getElementById('mediaContainer');
+            
+            const removeBtn = document.createElement('button');
+            removeBtn.innerHTML = '×';
+            removeBtn.classList.add('oficial_btt_bbw_imag-remove-btn');
+            removeBtn.onclick = () => mediaItem.remove();
+            
+            mediaItem.appendChild(removeBtn);
+            mediaContainer.appendChild(mediaItem);
+        }
+        
+        function openModal(src) {
+            document.getElementById('modalImg').src = src;
+            document.getElementById('modal').style.display = 'flex';
+        }
+        
+        document.getElementById('closeModal').onclick = function() {
+            document.getElementById('modal').style.display = 'none';
+        };
+    </script>
+  
+  
+  
+  
+  
+  
+  
+  
     
     <footer>
         <p>&copy; 2025 Subir Fotos y Videos. Todos los derechos reservados.</p>
