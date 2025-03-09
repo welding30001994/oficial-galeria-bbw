@@ -142,7 +142,9 @@
     </nav>
     
 
-     <style>
+
+
+  <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
@@ -159,7 +161,8 @@
             margin-bottom: 20px;
         }
         .oficial_btt_bbw_imag-container {
-            width: 650px;
+            width: 90%;
+            max-width: 650px;
             height: 650px;
             border: 2px dashed #007bff;
             margin: 0 auto;
@@ -182,7 +185,8 @@
         }
         .oficial_btt_bbw_imag-media-item {
             position: relative;
-            width: 200px;
+            width: 100%;
+            max-width: 200px;
             height: 200px;
             cursor: grab;
             display: flex;
@@ -233,6 +237,16 @@
             font-size: 30px;
             color: white;
             cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .oficial_btt_bbw_imag-container {
+                height: auto;
+                max-height: 500px;
+            }
+            .oficial_btt_bbw_imag-media-item {
+                max-width: 150px;
+                height: 150px;
+            }
         }
     </style>
 </head>
@@ -300,8 +314,12 @@
             document.getElementById('modal').style.display = 'none';
         };
     </script>
-  
-  
+
+
+
+
+
+    
   
   
   
